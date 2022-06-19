@@ -7,6 +7,8 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.enveramil.listedcountriesinformation.R
 import com.enveramil.listedcountriesinformation.model.Model
+import com.enveramil.listedcountriesinformation.util.getImage
+import com.enveramil.listedcountriesinformation.util.placeHolderProgressBar
 import com.enveramil.listedcountriesinformation.view.CountryListedFragmentDirections
 import kotlinx.android.synthetic.main.fragment_country_details.view.*
 import kotlinx.android.synthetic.main.fragment_country_details.view.countryName
@@ -33,6 +35,8 @@ class CountryAdapter(val countryList : ArrayList<Model>) :
             val action = CountryListedFragmentDirections.actionCountryListedFragmentToCountryDetailsFragment()
             Navigation.findNavController(holder.itemView).navigate(action)
         }
+
+        holder.itemView.countryImage.getImage(countryList[position].imageUrl, placeHolderProgressBar(holder.itemView.context))
     }
 
     override fun getItemCount(): Int {
