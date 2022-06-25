@@ -8,11 +8,17 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.enveramil.listedcountriesinformation.R
+import com.enveramil.listedcountriesinformation.util.getImage
+import com.enveramil.listedcountriesinformation.util.placeHolderProgressBar
 import com.enveramil.listedcountriesinformation.viewmodel.CountryDetailsViewModel
 import kotlinx.android.synthetic.main.fragment_country_details.*
+import kotlinx.android.synthetic.main.fragment_country_details.countryName
+import kotlinx.android.synthetic.main.fragment_country_details.view.*
+import kotlinx.android.synthetic.main.item_countries_list.*
 
 class CountryDetailsFragment : Fragment() {
     private lateinit var viewModel : CountryDetailsViewModel
+    private var uuid = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,8 +35,13 @@ class CountryDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        arguments?.let {
+            uuid = CountryDetailsFragmentArgs.fromBundle(it).countryUuid
+        }
+
         viewModel = ViewModelProviders.of(this).get(CountryDetailsViewModel::class.java)
-        viewModel.getDataFromRoom()
+        viewModel.getDataFromRoom(uuid)
         observeLiveData()
     }
 
@@ -43,6 +54,9 @@ class CountryDetailsFragment : Fragment() {
                 regionName.text = Countries.regionName
                 currencyName.text = Countries.currencyName
                 languageName.text = Countries.languageName
+                context?.let {
+                    countryImageView.getImage(Countries.imageUrl, placeHolderProgressBar(it))
+                }
             }
         })
     }

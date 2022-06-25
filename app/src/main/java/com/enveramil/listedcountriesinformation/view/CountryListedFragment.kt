@@ -40,12 +40,13 @@ class CountryListedFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = countryAdapter
         observeLiveData()
+
         swipeRefreshLayout.setOnRefreshListener {
             recyclerView.visibility = View.GONE
             errorMessage.visibility = View.GONE
 
             loadingData.visibility = View.VISIBLE
-            viewModel.refreshData()
+            viewModel.refreshDataFromAPI()
             swipeRefreshLayout.isRefreshing = false
         }
 

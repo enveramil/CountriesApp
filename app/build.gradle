@@ -35,7 +35,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 }
 
@@ -88,5 +88,7 @@ dependencies {
     implementation "com.android.support:design:$supportVersion"
 
     implementation "androidx.preference:preference:$preferencesVersion"
+
+    implementation "androidx.preference:preference-ktx:1.2.0"
 
 }

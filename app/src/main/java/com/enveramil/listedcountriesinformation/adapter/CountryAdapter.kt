@@ -32,7 +32,7 @@ class CountryAdapter(val countryList : ArrayList<Model>) :
         holder.itemView.countryRegion.text = countryList[position].regionName
 
         holder.itemView.setOnClickListener {
-            val action = CountryListedFragmentDirections.actionCountryListedFragmentToCountryDetailsFragment()
+            val action = CountryListedFragmentDirections.actionCountryListedFragmentToCountryDetailsFragment(countryList[position].uuid)
             Navigation.findNavController(holder.itemView).navigate(action)
         }
 
