@@ -5,9 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.enveramil.listedcountriesinformation.R
+import com.enveramil.listedcountriesinformation.databinding.FragmentCountryDetailsBinding
 import com.enveramil.listedcountriesinformation.util.getImage
 import com.enveramil.listedcountriesinformation.util.placeHolderProgressBar
 import com.enveramil.listedcountriesinformation.viewmodel.CountryDetailsViewModel
@@ -19,6 +21,7 @@ import kotlinx.android.synthetic.main.item_countries_list.*
 class CountryDetailsFragment : Fragment() {
     private lateinit var viewModel : CountryDetailsViewModel
     private var uuid = 0
+    private lateinit var dataBinding : FragmentCountryDetailsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +33,8 @@ class CountryDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_country_details, container, false)
+        dataBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_country_details,container,false)
+        return dataBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,6 +53,8 @@ class CountryDetailsFragment : Fragment() {
         viewModel.selectedCountryLiveData.observe(viewLifecycleOwner, Observer {
             Countries ->
             Countries?.let {
+                dataBinding.selectedCountry = it
+                /*
                 countryName.text = Countries.countryName
                 capitalName.text = Countries.capitalName
                 regionName.text = Countries.regionName
@@ -57,6 +63,8 @@ class CountryDetailsFragment : Fragment() {
                 context?.let {
                     countryImageView.getImage(Countries.imageUrl, placeHolderProgressBar(it))
                 }
+
+                 */
             }
         })
     }
